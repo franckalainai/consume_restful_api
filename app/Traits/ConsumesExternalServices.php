@@ -31,7 +31,7 @@ trait ConsumesExternalServices
         $response = $response->getBody()->getContents();
 
         if (method_exists($this, 'decodeResponse')) {
-            $this->decodeResponse($response);
+            $response = $this->decodeResponse($response);
         }
         // verify if the response is an error response or not
         if (method_exists($this, 'checkIfErrorResponse')) {

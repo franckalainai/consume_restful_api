@@ -17,4 +17,9 @@ class MarketService
     {
         $this->baseUri = config('services.market.base_uri');
     }
+
+    public function getProducts()
+    {
+        return $this->makeRequest('GET', 'products');
+    }
 }
