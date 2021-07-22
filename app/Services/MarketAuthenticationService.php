@@ -75,6 +75,25 @@ class MarketAuthenticationService
         return $tokenData;
     }
 
+    // obtain an access token from the user credentials
+    public function getPasswordToken($username, $password)
+    {
+        $formParams = [
+            'grant_type' => 'password',
+            'client_id' => $this->passwordClientId,
+            'client_secret' => $this->passwordClientSecret,
+            'username' => $username,
+            'password' => $password,
+            'scope' => 'purchase-product manage-products manage-account read-general'
+        ];
+
+        $tokenData = $this->makeRequest('POST', 'oauth/token', [], $formParams);
+
+        $this->storeValidToken($tokenData, 'client_credentials');
+
+        return $tokenData;
+    }
+
 
     // store a valid token with some attributes
     public function storeValidToken($tokenData, $grantType)
