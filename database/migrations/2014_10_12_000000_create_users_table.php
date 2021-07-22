@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('grant_type');
             $table->text('access_token');
             $table->text('refresh_token');
-            $table->timestamp('token_exoires_at');
+            $table->timestamp('token_expires_at');
             $table->rememberToken();
             $table->timestamps();
         });

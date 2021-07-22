@@ -45,6 +45,37 @@ class MarketAuthenticationService
         return $tokenData->access_token;
     }
 
+    // generate the URL to obtain users authorization
+    public function resolveAuthorizationUrl()
+    {
+        $query = http_build_query([
+            'client_id' => $this->clientId,
+            'redirect_uri' => route('authorization'),
+            'response_type' => 'code',
+            'scope' => 'purchase-product manage-products manage-account read-general'
+        ]);
+        return "{$this->baseUri}/oauth/authorize?{$query}";
+    }
+
+    // obtain an access token from a given code
+    public function getCodeToken($code)
+    {
+        $formParams = [
+            'grant_type' => 'authorization_code',
+            'client_id' => $this->clientId,
+            'client_secret' => $this->clientSecret,
+            'redirect_uri' => route('authorization'),
+            'code' => $code,
+        ];
+
+        $tokenData = $this->makeRequest('POST', 'oauth/token', [], $formParams);
+
+        $this->storeValidToken($tokenData, 'client_credentials');
+
+        return $tokenData;
+    }
+
+
     // store a valid token with some attributes
     public function storeValidToken($tokenData, $grantType)
     {

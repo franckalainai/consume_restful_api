@@ -20,7 +20,7 @@ class User extends Authenticatable
         'grant_type',
         'access_token',
         'refresh_token',
-        'token_exoires_at'
+        'token_expires_at'
     ];
 
     /**
@@ -32,7 +32,7 @@ class User extends Authenticatable
         'remember_token',
         'access_token',
         'refresh_token',
-        'token_exoires_at'
+        'token_expires_at'
     ];
 
     /**
